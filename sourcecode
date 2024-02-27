@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie1-Paweł Gawron</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+    <script>
+        var canvas;
+        var graphics;
+        function draw() {
+            graphics.clearRect(0, 0, canvas.width, canvas.height);
+            graphics.fillStyle = "rgb(255, 58, 0)";
+            graphics.strokeStyle = "black";
+            graphics.lineWidth = 5;
+
+            var centerX = canvas.width / 2;
+            var centerY = canvas.height / 2;
+            var radius = Math.min(centerX, centerY) * 0.8;
+            var startAngle = Math.PI;
+            var endAngle = 2 * Math.PI;
+            graphics.beginPath();
+            graphics.arc(centerX, centerY, radius, startAngle, endAngle);
+            graphics.closePath();
+            graphics.stroke();
+            graphics.fill();
+
+            var eyeRadius = radius * 0.11;
+            var eyeOffsetY = radius * 0.7;
+            graphics.fillStyle = "white";
+            graphics.beginPath();
+            graphics.arc(centerX - radius * 0.3, centerY - eyeOffsetY, eyeRadius, 0, Math.PI * 2);
+            graphics.arc(centerX + radius * 0.3, centerY - eyeOffsetY, eyeRadius, 0, Math.PI * 2);
+            graphics.fill();
+
+            var pupilEye = eyeRadius * 0.5;
+            graphics.fillStyle = "black";
+            graphics.beginPath();
+            graphics.arc(centerX - radius * 0.3, centerY - eyeOffsetY, pupilEye, 0, Math.PI * 2);
+            graphics.arc(centerX + radius * 0.3, centerY - eyeOffsetY, pupilEye, 0, Math.PI * 2);
+            graphics.fill();
+
+            var whiteTone = pupilEye * 0.3;
+            graphics.fillStyle = "white";
+            var eyeOffsetY = radius * 0.72;
+            graphics.beginPath();
+            graphics.arc(centerX - radius * 0.32, centerY - eyeOffsetY, whiteTone, 0, Math.PI * 2);
+            graphics.arc(centerX + radius * 0.28, centerY - eyeOffsetY, whiteTone, 0, Math.PI * 2);
+            graphics.fill();
+
+
+            var smile1Radius = radius * 0.25;
+            var smile2OffsetY = radius * -0.3;
+            var smile2OffsetX = radius * 0.5;
+            var start2SmileAngle = Math.PI * 0.05;
+            var end2SmileAngle = Math.PI * 0.95;
+            graphics.fillStyle = "red";
+            graphics.beginPath();
+            graphics.arc(centerX, centerY + smile2OffsetY, smile1Radius, start2SmileAngle, end2SmileAngle);
+            graphics.stroke();
+            graphics.fill();
+
+            var smile1Radius = radius * 0.35;
+            var smile1OffsetY = radius * -0.52;
+            var smile1OffsetX = radius * 0.5;
+            var start1SmileAngle = Math.PI * 0.25;
+            var end1SmileAngle = Math.PI * 0.75;
+
+            graphics.fillStyle = "rgb(255, 58, 0)"
+            graphics.beginPath();
+            graphics.arc(centerX, centerY + smile1OffsetY, smile1Radius, start1SmileAngle, end1SmileAngle);
+            graphics.stroke();
+            graphics.fill();
+
+            var toothWidth = smile1Radius * 0.15;
+            var toothHeight = radius * 0.08;
+            var toothSpacing = radius * 0.01;
+            var numTeeth = 2;
+
+            graphics.fillStyle = "white";
+            for (var i = 0; i < numTeeth; i++) {
+                var toothX = centerX - toothWidth * numTeeth / 2 + i * (toothWidth + toothSpacing);
+                var toothY = centerY - radius * 0.15;
+                graphics.fillRect(toothX, toothY, toothWidth, toothHeight);
+
+                graphics.strokeStyle = "black";
+                graphics.lineWidth = 1;
+                graphics.strokeRect(toothX, toothY, toothWidth, toothHeight);
+            }
+
+        }
+
+        function init() {
+            canvas = document.getElementById("theCanvas");
+            graphics = canvas.getContext("2d");
+            draw();
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <canvas id="theCanvas" width="440" height="320"></canvas>
+</body>
+
+</html>
